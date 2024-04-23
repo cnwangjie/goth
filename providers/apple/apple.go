@@ -102,6 +102,7 @@ func (p Provider) BeginAuth(state string) (goth.Session, error) {
 	if p.formPostResponseMode {
 		opts = append(opts, oauth2.SetAuthURLParam("response_mode", "form_post"))
 	}
+	state = url.QueryEscape(state)
 	authURL := p.config.AuthCodeURL(state, opts...)
 	if authURL != "" {
 		if u, err := url.Parse(authURL); err == nil {
